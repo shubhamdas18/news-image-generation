@@ -85,6 +85,6 @@ for query in queries:
 
 # Save dataset
 df = pd.DataFrame(data)
-df.to_csv("news_dataset.csv", index=False)
+df.to_csv("news_dataset_%t.csv"%(), index=False)
 
 print("\nDataset created with", len(df), "images.")

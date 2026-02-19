@@ -1,4 +1,20 @@
-google-search-results
-requests
+# Core deep learning (CPU)
+torch
+torchvision
+torchaudio
+
+# Stable Diffusion
+diffusers
+transformers
+accelerate
+safetensors
+huggingface-hub
+
+# Image processing
+Pillow
+
+# Dataset tools
 pandas
+requests
 python-dotenv
+google-search-results
