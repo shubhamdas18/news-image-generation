@@ -18,3 +18,9 @@ pandas
 requests
 python-dotenv
 google-search-results
+
+# News scraping
+newspaper3k
+
+# Text similarity
+scikit-learn
