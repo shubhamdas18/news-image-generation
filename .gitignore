@@ -3,3 +3,6 @@
 __pycache__/
 *.pyc
 images/
+input_image/
+output_images/
+output_images.zip

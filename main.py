@@ -1,6 +1,7 @@
 import os
 import requests
 import pandas as pd
+import time
 from serpapi import GoogleSearch
 from dotenv import load_dotenv
 
@@ -11,17 +12,13 @@ API_KEY = os.getenv("SERPAPI_KEY")
 if not API_KEY:
     raise ValueError("SERPAPI_KEY not found in .env file")
 
-#print("API KEY:", API_KEY)
-
-
-# Create images folder
-os.makedirs("images", exist_ok=True)
+# Create image folder
+os.makedirs("input_image", exist_ok=True)
 
 data = []
-image_count = 0
-target_images = 1000
+image_count = 580
+target_images = 3000
 
-# News-related queries
 queries = [
     "India politics",
     "India economy",
@@ -57,16 +54,18 @@ for query in queries:
         if image_count >= target_images:
             break
 
-        image_url = img.get("original")
+        image_url = img.get("original") or img.get("thumbnail")
         caption = img.get("title")
 
         if not image_url or not caption:
             continue
 
         try:
-            response = requests.get(image_url, timeout=5)
+            headers = {"User-Agent": "Mozilla/5.0"}
+            response = requests.get(image_url, headers=headers, timeout=5)
+
             if response.status_code == 200:
-                image_path = f"images/img_{image_count}.jpg"
+                image_path = f"input_image/img_{image_count}.jpg"
 
                 with open(image_path, "wb") as f:
                     f.write(response.content)
@@ -80,11 +79,10 @@ for query in queries:
                 print("Downloaded:", image_count)
 
         except Exception as e:
-            print("Skipped image:", e)
-            continue
+            print("Skipped:", e)
 
-# Save dataset
+# Save CSV as data.csv
 df = pd.DataFrame(data)
-df.to_csv("news_dataset_%t.csv"%(), index=False)
+df.to_csv("data.csv", index=False)
 
 print("\nDataset created with", len(df), "images.")
