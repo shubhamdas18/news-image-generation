@@ -24,3 +24,5 @@ newspaper3k
 
 # Text similarity
 scikit-learn
+lxml
+lxml_html_clean
